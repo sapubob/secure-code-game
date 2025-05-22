@@ -9,8 +9,8 @@ def validorder(order):
                 return "maxDecimal reached for payment %s" % item.description
             else:
                 received += Decimal(str(item.amount))
-            if received >= maxDecimal:
-                return "maxDecimal reached for received"
+                if received >= maxDecimal:
+                    return "maxDecimal reached for received"
         elif item.type == 'product':
             if abs(item.amount) >= maxDecimal:
                 return "maxDecimal reached for product %s" % item.description
@@ -20,8 +20,8 @@ def validorder(order):
                 return "maxDecimal reached for product %s" % item.description
             else:
                 invoiced += Decimal(str(item.amount)) * Decimal(str(item.quantity))
-            if invoiced > maxDecimal:
-                return "maxDecimal exceeded for total invoiced"
+                if invoiced > maxDecimal:
+                    return "maxDecimal exceeded for total invoiced"
         else:
             return "Invalid item type: %s" % item.type
 
@@ -29,3 +29,4 @@ def validorder(order):
         return "Order ID: %s - Full payment received!" % order.id
     else:
         return "Order ID: %s - Payment imbalance: $%0.2f" % (order.id, received - invoiced)
+validorder
