@@ -5,19 +5,12 @@ def validorder(order):
 
     for item in order.items:
         if item.type == 'payment':
-            if abs(item.amount) >= maxDecimal:
-                return "maxDecimal reached for payment %s" % item.description
-            else:
-                received += Decimal(str(item.amount))
-                if received >= maxDecimal:
-                    return "maxDecimal reached for received"
+            received += Decimal(str(item.amount))
+            if received >= maxDecimal:
+                return "maxDecimal exceeded for total received"
         elif item.type == 'product':
-            if abs(item.amount) >= maxDecimal:
-                return "maxDecimal reached for product %s" % item.description
-            elif item.quantity != int(item.quantity):
+            if item.quantity != int(item.quantity):
                 return "non-integer quantity for product %s" % item.description
-            elif abs(item.amount) * abs(item.quantity) >= maxDecimal:
-                return "maxDecimal reached for product %s" % item.description
             else:
                 invoiced += Decimal(str(item.amount)) * Decimal(str(item.quantity))
                 if invoiced > maxDecimal:
