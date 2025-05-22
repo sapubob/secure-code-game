@@ -1,33 +1,31 @@
-'''
-Welcome to Secure Code Game Season-1/Level-1!
-
-Follow the instructions below to get started:
-
-1. tests.py is passing but code.py is vulnerable
-2. Review the code. Can you spot the bug?
-3. Fix the code but ensure that tests.py passes
-4. Run hack.py and if passing then CONGRATS!
-5. If stuck then read the hint
-6. Compare your solution with solution.py
-'''
-
-from collections import namedtuple
-
-Order = namedtuple('Order', 'id, items')
-Item = namedtuple('Item', 'type, description, amount, quantity')
-
-def validorder(order: Order):
-    net = 0
+def validorder(order):
+    invoiced = Decimal('0')
+    received = Decimal('0')
+    maxDecimal = 99999999999
 
     for item in order.items:
         if item.type == 'payment':
-            net += item.amount
+            if abs(item.amount) >= maxDecimal:
+                return "maxDecimal reached for payment %s" % item.description
+            else:
+                received += Decimal(str(item.amount))
+            if received >= maxDecimal:
+                return "maxDecimal reached for received"
         elif item.type == 'product':
-            net -= item.amount * item.quantity
+            if abs(item.amount) >= maxDecimal:
+                return "maxDecimal reached for product %s" % item.description
+            elif item.quantity != int(item.quantity):
+                return "non-integer quantity for product %s" % item.description
+            elif abs(item.amount) * abs(item.quantity) >= maxDecimal:
+                return "maxDecimal reached for product %s" % item.description
+            else:
+                invoiced += Decimal(str(item.amount)) * Decimal(str(item.quantity))
+            if invoiced > maxDecimal:
+                return "maxDecimal exceeded for total invoiced"
         else:
             return "Invalid item type: %s" % item.type
 
-    if net != 0:
-        return "Order ID: %s - Payment imbalance: $%0.2f" % (order.id, net)
-    else:
+    if invoiced == received:
         return "Order ID: %s - Full payment received!" % order.id
+    else:
+        return "Order ID: %s - Payment imbalance: $%0.2f" % (order.id, received - invoiced)
