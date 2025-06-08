@@ -24,6 +24,7 @@ class TaxPayer:
         # setting a profile picture is optional
         if not path:
             pass
+        
         # defends against path traversal attacks
         #if path.startswith('/') or path.startswith('..'):
         if path != os.path.normpath(path):
@@ -42,6 +43,7 @@ class TaxPayer:
         tax_data = None
         if not path:
             raise Exception("Error: Tax form is required for all users")
+        # defends against path traversal attacks
         if path != os.path.normpath(path):
             return None
         with open(path, 'rb') as form:
