@@ -91,6 +91,8 @@ class DB_CRUD_ops(object):
             res = "[METHOD EXECUTED] get_stock_info\n"
 # this looks like parameterized input but it's actually just inserting the string
             query = "SELECT * FROM stocks WHERE symbol = '{0}'".format(stock_symbol)
+# parameterized input
+            con.execute("SELECT * FROM stocks WHERE symbol = '?'", (user_input,))
             res += "[QUERY] " + query + "\n"
 
             # a block list (aka restricted characters) that should not exist in user-supplied input
