@@ -168,7 +168,7 @@ class DB_CRUD_ops(object):
 
             res = "[METHOD EXECUTED] update_stock_price\n"
             # UPDATE stocks SET price = 310.0 WHERE symbol = 'MSFT'
-# %d truncates float to integer
+# %d truncates float to integer, also susceptible to overflow error
             query = "UPDATE stocks SET price = '%d' WHERE symbol = '%s'" % (price, stock_symbol)
             res += "[QUERY] " + query + "\n"
 
