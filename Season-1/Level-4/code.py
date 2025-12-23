@@ -221,6 +221,7 @@ class DB_CRUD_ops(object):
     # executes any query or multiple queries as defined from the user in the form of script
     # Example: SELECT price FROM stocks WHERE symbol = 'MSFT';
     #          SELECT * FROM stocks WHERE symbol = 'MSFT'
+# this whole method is suspicious
     def exec_user_script(self, query):
         # building database from scratch as it is more suitable for the purpose of the lab
         db = Create()
