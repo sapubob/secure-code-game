@@ -89,6 +89,7 @@ class DB_CRUD_ops(object):
             cur = db_con.cursor()
 
             res = "[METHOD EXECUTED] get_stock_info\n"
+# this looks like parameterized input but it's actually just inserting the string
             query = "SELECT * FROM stocks WHERE symbol = '{0}'".format(stock_symbol)
             res += "[QUERY] " + query + "\n"
 
