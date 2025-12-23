@@ -137,6 +137,7 @@ class DB_CRUD_ops(object):
             res += "[QUERY] " + query + "\n"
             if ';' in query:
                 res += "[SCRIPT EXECUTION]\n"
+# this shouldn't be necessary for SELECT statement, does not apply parameterization
                 cur.executescript(query)
             else:
                 cur.execute(query)
