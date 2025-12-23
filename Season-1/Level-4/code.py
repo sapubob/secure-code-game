@@ -204,6 +204,7 @@ class DB_CRUD_ops(object):
                 res += "[QUERY]" + query + "\n"
                 query = query.strip()
                 cur.execute(query)
+# why are we committing a SELECT statement?
                 db_con.commit()
 
                 query_outcome = cur.fetchall()
